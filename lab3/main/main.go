@@ -76,7 +76,17 @@ func mainF() {
 	result += fmt.Sprintln()
 	result += showMatrix2nd("Отсортированные собственные векторы", tRes)
 	result += showMatrix2nd("Проекции объектов на главные компоненты", calcProctions(matrX, tRes))
-	result += fmt.Sprint("I(p`) = ", getIp(arr))
+	var res, col = getIp(arr)
+	result += fmt.Sprint("I(p`) = ", res, "\n")
+	result += fmt.Sprint("Col = ", col, "\n")
+	var resBool = calcD(matrR, N)
+	if resBool {
+		result += fmt.Sprint("Применение метода главных компонент\n" +
+			"нецелесообразно\n")
+	} else {
+		result += fmt.Sprint("Применение метода главных компонент\n" +
+			"целесообразно\n")
+	}
 	result += fmt.Sprintln()
 	result += WriteInfo()
 	writeTofile("lab3\\main\\out.txt", result)
@@ -121,10 +131,11 @@ func sumMatrixSimpl(a [][]float64, b [][]float64) [][]float64 {
 	return res
 }
 
-func getIp(arr []float64) float64 {
+func getIp(arr []float64) (float64, int) {
 	var Hp = 0.0
 	var sumH = 0.0
 	var Ip = 0.0
+	var col int
 	for i := range arr {
 		sumH += arr[i]
 	}
@@ -133,11 +144,12 @@ func getIp(arr []float64) float64 {
 		if Ip < 0.95 {
 			Hp += arr[i]
 			Ip = Hp / sumH
+			col++
 		} else {
 			break
 		}
 	}
-	return Ip
+	return Ip, col
 }
 func WriteInfo() string {
 	return "Если c 1k большой по модулю, то зависимость первой главной компоненты от\n" +
@@ -162,4 +174,17 @@ func test() {
 	var cl = getColumnAsMatrix(xmatr, 0)
 	log.Println(showMatrix2nd("", resultColumn))
 	log.Println(showMatrix2nd("Test sum", sumMatrixSimpl(cl, resultColumn)))
+}
+
+// на вход r матрица
+func calcD(matr [][]float64, N int) bool {
+	var sum float64
+	for i := range matr {
+		for j := range matr[i] {
+			if i != j {
+				sum += matr[i][j]
+			}
+		}
+	}
+	return float64(N)*sum <= 69.9568
 }
