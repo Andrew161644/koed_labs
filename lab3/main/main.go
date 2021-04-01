@@ -156,25 +156,6 @@ func WriteInfo() string {
 		"k x сильная, если коэффициент положительный, то зависимость\n" +
 		"возрастающая, аналогично остальные случаи."
 }
-func test() {
-	var xmatr = [][]float64{
-		{1, 2, 3},
-		{4, 5, 6},
-		{7, 1, 0},
-	}
-	var k = 2
-	var cmatr = [][]float64{
-		{7, 2, 8},
-		{1, 3, 6},
-		{6, 1, 0},
-	}
-	var j = 1
-	var xk = getColumnAsMatrix(xmatr, k)
-	var resultColumn = mnogCh(cmatr[j][k], xk)
-	var cl = getColumnAsMatrix(xmatr, 0)
-	log.Println(showMatrix2nd("", resultColumn))
-	log.Println(showMatrix2nd("Test sum", sumMatrixSimpl(cl, resultColumn)))
-}
 
 // на вход r матрица
 func calcD(matr [][]float64, N int) bool {

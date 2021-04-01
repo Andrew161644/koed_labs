@@ -10,7 +10,7 @@ import (
 func main() {
 	log.Println("Process Started")
 	var result string
-	var matr = fileReader("C:\\Users\\Андрей\\go\\src\\koed_labs\\laba1\\com.me\\main\\data.txt")
+	var matr = fileReader("C:\\Users\\Андрей\\go\\src\\koed_labs\\laba1\\lab1\\main\\data.txt")
 	result += showMatrix2nd("Средние", [][]float64{findS2ForAll(matr)})
 	fmt.Println()
 	var N = len(matr)
@@ -30,7 +30,7 @@ func main() {
 	result += writeInfo()
 	result += "a = 0.05\n"
 	result += "t = 1.994\n"
-	writeTofile("C:\\Users\\Андрей\\go\\src\\koed_labs\\laba1\\com.me\\main\\out.txt", result)
+	writeTofile("C:\\Users\\Андрей\\go\\src\\koed_labs\\laba1\\lab1\\main\\out.txt", result)
 	log.Println(result)
 }
 
